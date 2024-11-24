@@ -34,6 +34,9 @@ export class Travel {
   @Column({ type: 'smallint', default: 0 })
   availableSeats: number;
 
+  @Column({ type: 'smallint', default: 0 })
+  totalNumberOfSeats: number;
+
   @OneToMany(() => Mood, (mood) => mood.travel, { cascade: true })
   moods: Mood[];
 }

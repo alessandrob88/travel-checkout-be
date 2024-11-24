@@ -3,12 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Travel } from './entities/travel.entity';
 import { PaginationResponse } from 'src/shared/types/paginationResponse.type';
+import { TravelValidator } from './travel.validator';
 
 @Injectable()
 export class TravelService {
   constructor(
     @InjectRepository(Travel)
     private travelRepository: Repository<Travel>,
+    private travelValidator: TravelValidator,
   ) {}
 
   /**
@@ -83,21 +85,41 @@ export class TravelService {
   }
 
   /**
-   * Increases or decreases the number of available seats for a given travel entity.
+   * Updates the number of available seats for a given travel
    *
-   * @param travelId Travel entity unique identifier
-   * @param delta The number of seats to increase (positive value) or decrease (negative value).
-   * @returns A promise that resolves to the updated travel entity.
-   * @throws An error if the travel entity is not found.
+   * @param travelId travel entity identifier
+   * @param delta The number of seats to add (positive) or remove (negative)
+   * @returns A promise that resolves to the updated travel entity
+   * @throws An error if the travel entity is not found
    */
   private async updateAvailableSeats(
     travelId: string,
     delta: number,
   ): Promise<Travel> {
-    const travel = await this.getTravelById(travelId);
-    if (!travel) throw new Error('Travel not found');
+    const queryRunner =
+      this.travelRepository.manager.connection.createQueryRunner();
+    await queryRunner.startTransaction();
 
-    travel.availableSeats += delta;
-    return this.travelRepository.save(travel);
+    try {
+      const travel = await queryRunner.manager.findOne(Travel, {
+        where: { id: travelId },
+      });
+      if (!travel) {
+        throw new Error('Travel not found');
+      }
+
+      this.travelValidator.validateSeatUpdate(travel, delta);
+
+      travel.availableSeats += delta;
+      await queryRunner.manager.save(Travel, travel);
+      await queryRunner.commitTransaction();
+
+      return travel;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
 }
