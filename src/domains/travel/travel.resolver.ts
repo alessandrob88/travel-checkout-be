@@ -32,12 +32,28 @@ export class TravelResolver {
    * Resolver to retrieve a travel entity by its unique identifier.
    *
    * @param id Travel entity unique identifier
-   * @returns A promise that resolves to the travel entity if found,
-   * null otherwise.
+   * @returns A promise that resolves to the travel entity if found
+   * @throws NotFoundException if not found
    */
   @Query(() => TravelGraphQL)
   async getTravelById(@Args('id') id: string): Promise<Travel> {
     const travel = await this.travelService.getTravelById(id);
+    if (!travel) {
+      throw new NotFoundException('Travel not found');
+    }
+    return travel;
+  }
+
+  /**
+   * Resolver to retrieve a travel entity by its slug.
+   *
+   * @param slug Travel entity slug
+   * @returns A promise that resolves to the travel entity if found
+   * @throws NotFoundException if not found
+   */
+  @Query(() => TravelGraphQL)
+  async getTravelBySlug(@Args('slug') slug: string): Promise<Travel> {
+    const travel = await this.travelService.getTravelBySlug(slug);
     if (!travel) {
       throw new NotFoundException('Travel not found');
     }

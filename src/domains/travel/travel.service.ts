@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { BaseService } from '../../shared/base/base.service';
 import { Travel } from './entities/travel.entity';
-import { PaginationResponse } from 'src/shared/types/paginationResponse.type';
+import { PaginationResponse } from '../../shared/types/paginationResponse.type';
 import { TravelValidator } from './travel.validator';
-import { BaseService } from 'src/shared/base/base.service';
 
 @Injectable()
 export class TravelService extends BaseService<Travel> {
@@ -40,6 +40,20 @@ export class TravelService extends BaseService<Travel> {
   async getTravelById(id: string): Promise<Travel> {
     return this.travelRepository.findOne({
       where: { id },
+      relations: ['moods'],
+    });
+  }
+
+  /**
+   * Retrieves a travel entity by its slug
+   *
+   * @param slug Travel entity slug
+   * @returns A promise that resolves to the travel entity if found,
+   * null otherwise.
+   */
+  async getTravelBySlug(slug: string): Promise<Travel> {
+    return this.travelRepository.findOne({
+      where: { slug },
       relations: ['moods'],
     });
   }
@@ -98,12 +112,12 @@ export class TravelService extends BaseService<Travel> {
       }
 
       this.travelValidator.validateSeatUpdate(travel, delta);
+      travel.availableSeats = travel.availableSeats + delta;
 
-      travel.availableSeats += delta;
-      await queryRunner.manager.save(Travel, travel);
+      const updatedTravel = await queryRunner.manager.save(Travel, travel);
       await queryRunner.commitTransaction();
 
-      return travel;
+      return updatedTravel;
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw error;
