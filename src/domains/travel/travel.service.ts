@@ -49,7 +49,7 @@ export class TravelService {
    * null otherwise.
    */
   async getTravelById(id: string): Promise<Travel> {
-    return await this.travelRepository.findOne({
+    return this.travelRepository.findOne({
       where: { id },
       relations: ['moods'],
     });

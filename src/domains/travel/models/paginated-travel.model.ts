@@ -1,11 +1,10 @@
-// travels.resolver.ts
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Travel } from '../entities/travel.entity';
+import { TravelGraphQL } from './travel.model';
 
 @ObjectType()
-export class PaginatedTravelResponse {
-  @Field(() => [Travel])
-  data: Travel[];
+export class PaginatedTravelGraphQL {
+  @Field(() => [TravelGraphQL])
+  data: TravelGraphQL[];
 
   @Field(() => Int)
   total: number;

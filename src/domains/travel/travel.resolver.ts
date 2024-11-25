@@ -2,7 +2,9 @@ import { PaginationResponse } from '../../shared/types/paginationResponse.type';
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { TravelService } from './travel.service';
 import { Travel } from './entities/travel.entity';
-import { PaginatedTravelResponse } from './models/paginated-travel-response';
+import { PaginatedTravelGraphQL } from './models/paginated-travel.model';
+import { TravelGraphQL } from './models/travel.model';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => Travel)
 export class TravelResolver {
@@ -17,12 +19,12 @@ export class TravelResolver {
    * list of travels, along with the total number of items, the current page
    * number, the page size, and the total number of pages.
    */
-  @Query(() => PaginatedTravelResponse)
+  @Query(() => PaginatedTravelGraphQL)
   async getAllTravels(
     @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
     @Args('pageSize', { type: () => Number, defaultValue: 10 })
     pageSize: number,
-  ): Promise<PaginationResponse<Travel>> {
+  ): Promise<PaginationResponse<TravelGraphQL>> {
     return this.travelService.getAllTravels(page, pageSize);
   }
 
@@ -33,9 +35,13 @@ export class TravelResolver {
    * @returns A promise that resolves to the travel entity if found,
    * null otherwise.
    */
-  @Query(() => Travel)
+  @Query(() => TravelGraphQL)
   async getTravelById(@Args('id') id: string): Promise<Travel> {
-    return this.travelService.getTravelById(id);
+    const travel = await this.travelService.getTravelById(id);
+    if (!travel) {
+      throw new NotFoundException('Travel not found');
+    }
+    return travel;
   }
 
   /**
@@ -45,7 +51,7 @@ export class TravelResolver {
    * @param seats The number of seats to increase.
    * @returns A promise that resolves to the updated travel entity.
    */
-  @Mutation(() => Travel)
+  @Mutation(() => TravelGraphQL)
   async increaseAvailableSeats(
     @Args('id') id: string,
     @Args('seats', { type: () => Number }) seats: number,
@@ -60,7 +66,7 @@ export class TravelResolver {
    * @param seats The number of seats to decrease.
    * @returns A promise that resolves to the updated travel entity.
    */
-  @Mutation(() => Travel)
+  @Mutation(() => TravelGraphQL)
   async decreaseAvailableSeats(
     @Args('id') id: string,
     @Args('seats', { type: () => Number }) seats: number,
