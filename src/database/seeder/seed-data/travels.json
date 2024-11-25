@@ -1,0 +1,370 @@
+[
+  {
+    "id": "d408be33-aa6a-4c73-a2c8-58a70ab2ba4d",
+    "slug": "jordan-360",
+    "name": "Jordan 360°",
+    "description": "Jordan 360°: the perfect tour to discover the suggestive Wadi Rum desert, the ancient beauty of Petra, and much more.\n\nVisiting Jordan is one of the most fascinating things that everyone has to do once in their life.You are probably wondering \"Why?\". Well, that's easy: because this country keeps several passions! During our tour in Jordan, you can range from well-preserved archaeological masterpieces to trekkings, from natural wonders excursions to ancient historical sites, from camels trek in the desert to some time to relax.\nDo not forget to float in the Dead Sea and enjoy mineral-rich mud baths, it's one of the most peculiar attractions. It will be a tour like no other: this beautiful country leaves a memorable impression on everyone.",
+    "startingDate": "2021-11-01",
+    "endingDate": "2021-11-09",
+    "price": 199900,
+    "moods": {
+      "nature": 80,
+      "relax": 20,
+      "history": 90,
+      "culture": 30,
+      "party": 10
+    }
+  },
+  {
+    "id": "4f4bd032-e7d4-402a-bdf6-aaf6be240d53",
+    "slug": "iceland-hunting-northern-lights",
+    "name": "Iceland: hunting for the Northern Lights",
+    "description": "Why visit Iceland in winter? Because it is between October and March that this land offers the spectacle of the Northern Lights, one of the most incredible and magical natural phenomena in the world, visible only near the earth's two magnetic poles. Come with us on WeRoad to explore this land of ice and fire, full of contrasts and natural variety, where the energy of waterfalls and geysers meets the peace of the fjords... And when the ribbons of light of the aurora borealis twinkle in the sky before our enchanted eyes, we will know that we have found what we were looking for.",
+    "startingDate": "2021-11-01",
+    "endingDate": "2021-11-08",
+    "price": 199900,
+    "moods": {
+      "nature": 100,
+      "relax": 30,
+      "history": 10,
+      "culture": 20,
+      "party": 10
+    }
+  },
+  {
+    "id": "cbf304ae-a335-43fa-9e56-811612dcb601",
+    "slug": "united-arab-emirates",
+    "name": "United Arab Emirates: from Dubai to Abu Dhabi",
+    "description": "At Dubai and Abu Dhabi everything is huge and majestic: here futuristic engineering works and modern infrastructures meet historical districts, local souks (typical bazars), desert and the sea. In this tour we’ll discover Dubai, where we’ll get on top of the highest skyscraper ever built, the Burj Khalifa. We’ll then take a walk at the Dubai Mall, the biggest mall on the planet, and we’ll spend a night in the desert, with the sight of the skyline on the horizon keeping us company. Then, it will be Abu Dhabi’s tourn! Sheik Zayed’s Grand Mosque’s white marble awaits for us to remain stoked in front of its wonderfulness, and the sea will invade us with peacefulness. UAE are all to discover, we’ll just get a taste of it, but we guarantee you’ll get quite the idea!",
+    "startingDate": "2022-01-03",
+    "endingDate": "2022-01-10",
+    "price": 149900,
+    "moods": {
+      "nature": 30,
+      "relax": 40,
+      "history": 20,
+      "culture": 80,
+      "party": 70
+    }
+  },
+  {
+    "id": "3a4c21bf-bd43-4c80-876d-9f9a9f12a4ea",
+    "slug": "japan-cherry-blossom-dream",
+    "name": "Japan: Cherry Blossom Dream",
+    "description": "Experience Japan during sakura season, as cherry blossoms paint the landscapes pink. Discover Kyoto's temples, Tokyo's vibrant streets, and relax in traditional hot springs. A perfect blend of history, culture, and natural beauty.",
+    "startingDate": "2022-03-20",
+    "endingDate": "2022-03-30",
+    "price": 259900,
+    "moods": {
+      "nature": 60,
+      "relax": 30,
+      "history": 80,
+      "culture": 100,
+      "party": 20
+    }
+  },
+  {
+    "id": "7f5c672a-0f8b-4b92-85c5-f56c5aaf26aa",
+    "slug": "south-africa-safari-adventure",
+    "name": "South Africa: Safari Adventure",
+    "description": "Venture into the wild heart of South Africa with thrilling safaris in Kruger National Park, cultural experiences in Cape Town, and scenic drives along the Garden Route.",
+    "startingDate": "2022-08-10",
+    "endingDate": "2022-08-20",
+    "price": 299900,
+    "moods": {
+      "nature": 100,
+      "relax": 40,
+      "history": 30,
+      "culture": 60,
+      "party": 10
+    }
+  },
+  {
+    "id": "b2e2f8ea-cae7-4ec9-9d5e-948b71c86d5c",
+    "slug": "italy-food-and-wine-escape",
+    "name": "Italy: Food and Wine Escape",
+    "description": "Taste the finest Italian wines and cuisines on this journey through Tuscany, Sicily, and the Amalfi Coast. Explore vineyards, olive groves, and charming coastal towns.",
+    "startingDate": "2022-06-01",
+    "endingDate": "2022-06-10",
+    "price": 199900,
+    "moods": {
+      "nature": 40,
+      "relax": 50,
+      "history": 60,
+      "culture": 70,
+      "party": 30
+    }
+  },
+  {
+    "id": "de31b2c1-ff99-4f88-83ed-5251a9c6841d",
+    "slug": "peru-machupicchu-expedition",
+    "name": "Peru: Machu Picchu Expedition",
+    "description": "Journey to the lost city of the Incas, Machu Picchu. Explore Cusco, hike the Sacred Valley, and immerse yourself in Peruvian culture and history.",
+    "startingDate": "2022-05-15",
+    "endingDate": "2022-05-25",
+    "price": 249900,
+    "moods": {
+      "nature": 90,
+      "relax": 20,
+      "history": 100,
+      "culture": 80,
+      "party": 10
+    }
+  },
+  {
+    "id": "c92f7d85-012b-4f0f-b0df-48f0dfc1db17",
+    "slug": "canada-rocky-mountains-retreat",
+    "name": "Canada: Rocky Mountains Retreat",
+    "description": "Escape to the majestic Rockies for an adventure filled with hiking, wildlife spotting, and peaceful lakefront relaxation.",
+    "startingDate": "2022-07-01",
+    "endingDate": "2022-07-09",
+    "price": 219900,
+    "moods": {
+      "nature": 100,
+      "relax": 50,
+      "history": 10,
+      "culture": 30,
+      "party": 10
+    }
+  },
+  {
+    "id": "8e7fba21-882d-4a64-a5a5-0b5f4381d597",
+    "slug": "australia-great-barrier-reef",
+    "name": "Australia: Great Barrier Reef",
+    "description": "Dive into an underwater paradise at the Great Barrier Reef. Explore the vibrant marine life, rainforests, and lively coastal cities like Cairns and Brisbane.",
+    "startingDate": "2022-09-10",
+    "endingDate": "2022-09-20",
+    "price": 299900,
+    "moods": {
+      "nature": 90,
+      "relax": 40,
+      "history": 20,
+      "culture": 50,
+      "party": 20
+    }
+  },
+  {
+    "id": "d98c32b8-41dc-48ed-92a2-bdd3eec9d283",
+    "slug": "egypt-pyramids-and-nile-cruise",
+    "name": "Egypt: Pyramids and Nile Cruise",
+    "description": "Discover ancient Egypt's wonders with visits to the Pyramids of Giza, the Sphinx, and a scenic cruise down the Nile River.",
+    "startingDate": "2022-10-01",
+    "endingDate": "2022-10-10",
+    "price": 199900,
+    "moods": {
+      "nature": 30,
+      "relax": 50,
+      "history": 100,
+      "culture": 80,
+      "party": 10
+    }
+  },
+  {
+    "id": "4a9ec813-38d6-45fc-b85e-214b2e3bcb47",
+    "slug": "norway-fjords-adventure",
+    "name": "Norway: Fjords Adventure",
+    "description": "Explore Norway's breathtaking fjords, charming villages, and vibrant cityscapes of Oslo and Bergen. Witness the midnight sun or northern lights depending on the season.",
+    "startingDate": "2022-06-15",
+    "endingDate": "2022-06-25",
+    "price": 279900,
+    "moods": {
+      "nature": 100,
+      "relax": 30,
+      "history": 40,
+      "culture": 50,
+      "party": 10
+    }
+  },
+  {
+    "id": "f8e44e7b-1427-4a9a-8705-c16d79b23e62",
+    "slug": "brazil-carnival-rio",
+    "name": "Brazil: Carnival in Rio",
+    "description": "Experience the vibrant energy of Rio de Janeiro during Carnival. Dance to samba beats, enjoy lively parades, and soak in the city's iconic sights.",
+    "startingDate": "2023-02-10",
+    "endingDate": "2023-02-20",
+    "price": 229900,
+    "moods": {
+      "nature": 40,
+      "relax": 20,
+      "history": 30,
+      "culture": 60,
+      "party": 100
+    }
+  },
+  {
+    "id": "ec36e4a3-9833-4a96-812d-3b83068dffad",
+    "slug": "maldives-luxury-escape",
+    "name": "Maldives: Luxury Escape",
+    "description": "Relax in overwater bungalows surrounded by turquoise waters. Enjoy snorkeling, spa treatments, and unforgettable sunsets in this tropical paradise.",
+    "startingDate": "2022-12-01",
+    "endingDate": "2022-12-08",
+    "price": 399900,
+    "moods": {
+      "nature": 70,
+      "relax": 100,
+      "history": 10,
+      "culture": 20,
+      "party": 10
+    }
+  },
+  {
+    "id": "b4f65d1a-fb7e-4f21-8b6b-47f48a1c5b9d",
+    "slug": "new-zealand-hobbiton-and-glaciers",
+    "name": "New Zealand: Hobbiton and Glaciers",
+    "description": "Step into the world of Middle-earth with a visit to Hobbiton. Then, explore New Zealand's stunning glaciers, fjords, and geothermal wonders.",
+    "startingDate": "2022-11-10",
+    "endingDate": "2022-11-20",
+    "price": 289900,
+    "moods": {
+      "nature": 90,
+      "relax": 30,
+      "history": 20,
+      "culture": 50,
+      "party": 20
+    }
+  },
+  {
+    "id": "69c07d8c-c1b3-4e44-9752-9b832c5b02c4",
+    "slug": "thailand-island-hopping",
+    "name": "Thailand: Island Hopping",
+    "description": "Discover Thailand's tropical islands, turquoise waters, and vibrant nightlife. Enjoy snorkeling, relaxing beaches, and bustling markets.",
+    "startingDate": "2023-01-15",
+    "endingDate": "2023-01-25",
+    "price": 199900,
+    "moods": {
+      "nature": 80,
+      "relax": 60,
+      "history": 30,
+      "culture": 40,
+      "party": 50
+    }
+  },
+  {
+    "id": "4b82f8aa-df2d-4af8-8418-d79dc2a837c1",
+    "slug": "greece-santorini-sunsets",
+    "name": "Greece: Santorini Sunsets",
+    "description": "Indulge in Santorini’s iconic whitewashed buildings, stunning sunsets, and delicious Mediterranean cuisine. A perfect romantic getaway.",
+    "startingDate": "2022-07-05",
+    "endingDate": "2022-07-12",
+    "price": 179900,
+    "moods": {
+      "nature": 50,
+      "relax": 80,
+      "history": 40,
+      "culture": 70,
+      "party": 20
+    }
+  },
+  {
+    "id": "a278fbc4-2fa8-45d3-ae9a-3ed7602a40da",
+    "slug": "morocco-sahara-experience",
+    "name": "Morocco: Sahara Experience",
+    "description": "Embark on a journey to the Sahara Desert. Explore Marrakech's markets, ride camels over dunes, and experience traditional Moroccan culture.",
+    "startingDate": "2022-04-01",
+    "endingDate": "2022-04-10",
+    "price": 189900,
+    "moods": {
+      "nature": 70,
+      "relax": 40,
+      "history": 60,
+      "culture": 80,
+      "party": 30
+    }
+  },
+  {
+    "id": "2e23e5cf-f93f-4682-94e1-e517c2364582",
+    "slug": "spain-tapas-and-flamenco",
+    "name": "Spain: Tapas and Flamenco",
+    "description": "Immerse yourself in Spanish culture with vibrant Flamenco shows, delicious tapas, and iconic landmarks in cities like Barcelona and Seville.",
+    "startingDate": "2022-09-05",
+    "endingDate": "2022-09-15",
+    "price": 209900,
+    "moods": {
+      "nature": 30,
+      "relax": 40,
+      "history": 70,
+      "culture": 90,
+      "party": 50
+    }
+  },
+  {
+    "id": "e8cf65ba-2146-4c07-bce2-bdb3c5fc6f6f",
+    "slug": "usa-west-coast-road-trip",
+    "name": "USA: West Coast Road Trip",
+    "description": "Drive along the stunning West Coast, from San Francisco to Los Angeles. Visit national parks, iconic landmarks, and vibrant cities.",
+    "startingDate": "2022-05-10",
+    "endingDate": "2022-05-20",
+    "price": 249900,
+    "moods": {
+      "nature": 60,
+      "relax": 30,
+      "history": 50,
+      "culture": 40,
+      "party": 40
+    }
+  },
+  {
+    "id": "c9df7d24-d82e-4329-88b2-62233c015c4d",
+    "slug": "switzerland-alpine-escape",
+    "name": "Switzerland: Alpine Escape",
+    "description": "Breathe in fresh Alpine air with scenic train rides, mountain hikes, and cozy stays in Swiss chalets.",
+    "startingDate": "2022-12-20",
+    "endingDate": "2022-12-28",
+    "price": 299900,
+    "moods": {
+      "nature": 90,
+      "relax": 50,
+      "history": 20,
+      "culture": 40,
+      "party": 10
+    }
+  },
+  {
+    "id": "7f642bea-cf21-4719-b252-8c3e6f8a8b3e",
+    "slug": "india-golden-triangle",
+    "name": "India: Golden Triangle",
+    "description": "Explore India’s Golden Triangle with visits to Delhi, Jaipur, and Agra. Witness the Taj Mahal, vibrant markets, and rich cultural traditions.",
+    "startingDate": "2022-03-10",
+    "endingDate": "2022-03-20",
+    "price": 189900,
+    "moods": {
+      "nature": 40,
+      "relax": 30,
+      "history": 90,
+      "culture": 100,
+      "party": 20
+    }
+  },
+  {
+    "id": "1f8e72a7-d77b-48e8-816d-6c2c5c5e5b0d",
+    "slug": "argentina-patagonia-adventure",
+    "name": "Argentina: Patagonia Adventure",
+    "description": "Embark on a breathtaking journey through Patagonia’s glaciers, mountains, and untamed wilderness. An unforgettable adventure for nature lovers.",
+    "startingDate": "2022-11-01",
+    "endingDate": "2022-11-10",
+    "price": 269900,
+    "moods": {
+      "nature": 100,
+      "relax": 20,
+      "history": 20,
+      "culture": 40,
+      "party": 10
+    }
+  },
+  {
+    "id": "8a3f65be-7df5-4f13-88b6-02c7e5a8f6e5",
+    "slug": "croatia-dalmatian-coast",
+    "name": "Croatia: Dalmatian Coast",
+    "description": "Sail along the Dalmatian Coast, explore charming coastal towns, and relax on pristine beaches. A mix of adventure and leisure.",
+    "startingDate": "2022-06-15",
+    "endingDate": "2022-06-25",
+    "price": 209900,
+    "moods": {
+      "nature": 70,
+      "relax": 60,
+      "history": 40,
+      "culture": 50,
+      "party": 30
+    }
+  }
+]

@@ -18,7 +18,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node ./node_modules/typeorm/cli"
+    "typeorm": "ts-node ./node_modules/typeorm/cli",
+    "seed:run": "ts-node src/database/seeder/seed.ts",
+    "seed:truncate": "ts-node src/database/seeder/truncate.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.11.2",
@@ -29,6 +31,7 @@
     "@nestjs/graphql": "^12.2.1",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/typeorm": "^10.0.2",
+    "dotenv": "^16.4.5",
     "graphql": "^16.9.0",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.0",

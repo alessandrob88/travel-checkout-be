@@ -4,14 +4,17 @@ import { Repository } from 'typeorm';
 import { Travel } from './entities/travel.entity';
 import { PaginationResponse } from 'src/shared/types/paginationResponse.type';
 import { TravelValidator } from './travel.validator';
+import { BaseService } from 'src/shared/base/base.service';
 
 @Injectable()
-export class TravelService {
+export class TravelService extends BaseService<Travel> {
   constructor(
     @InjectRepository(Travel)
     private travelRepository: Repository<Travel>,
     private travelValidator: TravelValidator,
-  ) {}
+  ) {
+    super(travelRepository);
+  }
 
   /**
    * Retrieves a paginated list of Travel entities.
@@ -24,21 +27,7 @@ export class TravelService {
     page: number,
     pageSize: number,
   ): Promise<PaginationResponse<Travel>> {
-    const skip = (page - 1) * pageSize;
-
-    const [travels, total] = await this.travelRepository.findAndCount({
-      skip,
-      take: pageSize,
-      relations: ['moods'],
-    });
-
-    return {
-      data: travels,
-      total,
-      page,
-      pageSize,
-      totalPages: Math.ceil(total / pageSize),
-    };
+    return this.getAllWithPagination(page, pageSize, { relations: ['moods'] });
   }
 
   /**
