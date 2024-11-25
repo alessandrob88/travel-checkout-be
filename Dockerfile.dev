@@ -10,7 +10,7 @@ RUN npm install
 
 COPY src ./src
 COPY tsconfig.json ./
-COPY .env.development.local ./.env
+COPY .env.local ./.env
 COPY wait-for-it.sh ./
 
 RUN chmod +x ./wait-for-it.sh

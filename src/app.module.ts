@@ -13,7 +13,7 @@ import { TravelModule } from './domains/travel/travel.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.development.local', '.env.development', '.env'],
+      envFilePath: ['.env.local', '.env'],
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],

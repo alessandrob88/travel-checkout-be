@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
 import { getTypeOrmConfig } from './database.config';
 
-config({ path: ['.env.development.local', '.env.development', '.env'] });
+config({ path: ['.env.local', '.env'] });
 
 const configService = new ConfigService();
 
