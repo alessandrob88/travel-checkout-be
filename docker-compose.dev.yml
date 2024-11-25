@@ -12,6 +12,8 @@ services:
       - APP_PORT=${APP_PORT}
       - DB_PORT=${DB_PORT}
       - NODE_ENV=development
+    volumes:
+      - ./src:/usr/src/app/src
     depends_on:
       - postgres
     networks:
