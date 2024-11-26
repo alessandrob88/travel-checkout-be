@@ -1,0 +1,14 @@
+[
+    {
+        "id": "1e23e5cf-f93f-4682-94e1-e517c2364582",
+        "email": "mario.rossi@gmail.foo"
+    },
+    {
+        "id": "f8cf65ba-2146-4c07-bce2-bdb3c5fc6f6f",
+        "email": "luigi.verdi@gmail.bar"
+    },
+    {
+        "id": "b3b5d8b9-6e4c-4e5d-9f5c-4b8c9a5f6e4c",
+        "email": "giuseppe.bianchi@gmail.baz"
+    }
+]
