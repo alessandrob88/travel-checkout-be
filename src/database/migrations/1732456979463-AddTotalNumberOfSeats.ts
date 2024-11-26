@@ -5,13 +5,13 @@ export class AddTotalNumberOfSeats1732456979463 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `ALTER TABLE "travel" ADD "totalNumberOfSeats" smallint NOT NULL DEFAULT '0'`,
+      `ALTER TABLE "travels" ADD "totalNumberOfSeats" smallint NOT NULL DEFAULT '0'`,
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `ALTER TABLE "travel" DROP COLUMN "totalNumberOfSeats"`,
+      `ALTER TABLE "travels" DROP COLUMN "totalNumberOfSeats"`,
     );
   }
 }
