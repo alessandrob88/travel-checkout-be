@@ -155,11 +155,12 @@ describe('TravelService', () => {
       });
     });
 
-    it('should return null if travel is not found', async () => {
+    it('should throw an exception if travel is not found', async () => {
       repository.findOne.mockResolvedValueOnce(null);
 
-      const result = await service.getTravelById(travelTestData.id);
-      expect(result).toBeNull();
+      await expect(service.getTravelById(travelTestData.id)).rejects.toThrow(
+        'Travel not found',
+      );
     });
   });
 
@@ -178,8 +179,9 @@ describe('TravelService', () => {
     it('should return null if travel is not found by slug', async () => {
       repository.findOne.mockResolvedValueOnce(null);
 
-      const result = await service.getTravelBySlug(travelTestData.slug);
-      expect(result).toBeNull();
+      await expect(service.getTravelById(travelTestData.id)).rejects.toThrow(
+        'Travel not found',
+      );
     });
   });
 

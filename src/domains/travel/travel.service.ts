@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BaseService } from '../../shared/base/base.service';
@@ -34,28 +34,40 @@ export class TravelService extends BaseService<Travel> {
    * Retrieves a travel entity by its unique identifier
    *
    * @param id Travel entity unique identifier
-   * @returns A promise that resolves to the travel entity if found,
-   * null otherwise.
+   * @returns A promise that resolves to the travel entity if found
+   * @throws {NotFoundException} if travel entity is not found
    */
   async getTravelById(id: string): Promise<Travel> {
-    return this.travelRepository.findOne({
+    const travel = await this.travelRepository.findOne({
       where: { id },
       relations: ['moods'],
     });
+
+    if (!travel) {
+      throw new NotFoundException('Travel not found');
+    }
+
+    return travel;
   }
 
   /**
    * Retrieves a travel entity by its slug
    *
    * @param slug Travel entity slug
-   * @returns A promise that resolves to the travel entity if found,
-   * null otherwise.
+   * @returns A promise that resolves to the travel entity if found
+   * @throws {NotFoundException} if travel entity is not found
    */
   async getTravelBySlug(slug: string): Promise<Travel> {
-    return this.travelRepository.findOne({
+    const travel = await this.travelRepository.findOne({
       where: { slug },
       relations: ['moods'],
     });
+
+    if (!travel) {
+      throw new NotFoundException('Travel not found');
+    }
+
+    return travel;
   }
 
   /**
@@ -108,7 +120,7 @@ export class TravelService extends BaseService<Travel> {
         where: { id: travelId },
       });
       if (!travel) {
-        throw new Error('Travel not found');
+        throw new NotFoundException('Travel not found');
       }
 
       this.travelValidator.validateSeatUpdate(travel, delta);

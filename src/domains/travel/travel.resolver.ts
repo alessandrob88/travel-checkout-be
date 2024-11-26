@@ -4,7 +4,6 @@ import { TravelService } from './travel.service';
 import { Travel } from './entities/travel.entity';
 import { PaginatedTravelGraphQL } from './models/paginated-travel.model';
 import { TravelGraphQL } from './models/travel.model';
-import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => Travel)
 export class TravelResolver {
@@ -37,11 +36,7 @@ export class TravelResolver {
    */
   @Query(() => TravelGraphQL)
   async getTravelById(@Args('id') id: string): Promise<Travel> {
-    const travel = await this.travelService.getTravelById(id);
-    if (!travel) {
-      throw new NotFoundException('Travel not found');
-    }
-    return travel;
+    return this.travelService.getTravelById(id);
   }
 
   /**
@@ -53,11 +48,7 @@ export class TravelResolver {
    */
   @Query(() => TravelGraphQL)
   async getTravelBySlug(@Args('slug') slug: string): Promise<Travel> {
-    const travel = await this.travelService.getTravelBySlug(slug);
-    if (!travel) {
-      throw new NotFoundException('Travel not found');
-    }
-    return travel;
+    return this.travelService.getTravelBySlug(slug);
   }
 
   /**
