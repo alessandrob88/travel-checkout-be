@@ -7,8 +7,8 @@ import {
 } from 'typeorm';
 import { Mood } from './mood.entity';
 
-@Entity('travel')
-@Index('idx_travel_dates', ['startingDate'])
+@Entity('travels')
+@Index('idx_travels_dates', ['startingDate'])
 export class Travel {
   @PrimaryGeneratedColumn('uuid')
   id: string;

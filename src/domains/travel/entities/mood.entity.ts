@@ -9,7 +9,7 @@ export enum MoodType {
   PARTY = 'party',
 }
 
-@Entity('mood')
+@Entity('moods')
 export class Mood {
   @PrimaryGeneratedColumn()
   id: number;
