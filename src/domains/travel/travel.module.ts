@@ -9,5 +9,6 @@ import { TravelValidator } from './travel.validator';
 @Module({
   imports: [TypeOrmModule.forFeature([Travel, Mood])],
   providers: [TravelService, TravelResolver, TravelValidator],
+  exports: [TravelService],
 })
 export class TravelModule {}

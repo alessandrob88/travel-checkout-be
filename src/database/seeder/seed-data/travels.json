@@ -7,6 +7,8 @@
     "startingDate": "2021-11-01",
     "endingDate": "2021-11-09",
     "price": 199900,
+    "availableSeats": 10,
+    "totalNumberOfSeats": 20,
     "moods": {
       "nature": 80,
       "relax": 20,
@@ -23,6 +25,8 @@
     "startingDate": "2021-11-01",
     "endingDate": "2021-11-08",
     "price": 199900,
+    "availableSeats": 30,
+    "totalNumberOfSeats": 30,
     "moods": {
       "nature": 100,
       "relax": 30,
@@ -39,6 +43,8 @@
     "startingDate": "2022-01-03",
     "endingDate": "2022-01-10",
     "price": 149900,
+    "availableSeats": 15,
+    "totalNumberOfSeats": 30,
     "moods": {
       "nature": 30,
       "relax": 40,
@@ -55,6 +61,8 @@
     "startingDate": "2022-03-20",
     "endingDate": "2022-03-30",
     "price": 259900,
+    "availableSeats": 0,
+    "totalNumberOfSeats": 30,
     "moods": {
       "nature": 60,
       "relax": 30,
@@ -71,6 +79,8 @@
     "startingDate": "2022-08-10",
     "endingDate": "2022-08-20",
     "price": 299900,
+    "availableSeats": 49,
+    "totalNumberOfSeats": 50,
     "moods": {
       "nature": 100,
       "relax": 40,
@@ -87,6 +97,8 @@
     "startingDate": "2022-06-01",
     "endingDate": "2022-06-10",
     "price": 199900,
+    "availableSeats": 10,
+    "totalNumberOfSeats": 50,
     "moods": {
       "nature": 40,
       "relax": 50,
@@ -103,6 +115,8 @@
     "startingDate": "2022-05-15",
     "endingDate": "2022-05-25",
     "price": 249900,
+    "availableSeats": 1,
+    "totalNumberOfSeats": 24,
     "moods": {
       "nature": 90,
       "relax": 20,
@@ -119,6 +133,8 @@
     "startingDate": "2022-07-01",
     "endingDate": "2022-07-09",
     "price": 219900,
+    "availableSeats": 20,
+    "totalNumberOfSeats": 20,
     "moods": {
       "nature": 100,
       "relax": 50,
@@ -135,6 +151,8 @@
     "startingDate": "2022-09-10",
     "endingDate": "2022-09-20",
     "price": 299900,
+    "availableSeats": 30,
+    "totalNumberOfSeats": 30,
     "moods": {
       "nature": 90,
       "relax": 40,
@@ -150,6 +168,8 @@
     "description": "Discover ancient Egypt's wonders with visits to the Pyramids of Giza, the Sphinx, and a scenic cruise down the Nile River.",
     "startingDate": "2022-10-01",
     "endingDate": "2022-10-10",
+    "availableSeats": 50,
+    "totalNumberOfSeats": 50,
     "price": 199900,
     "moods": {
       "nature": 30,
@@ -166,6 +186,8 @@
     "description": "Explore Norway's breathtaking fjords, charming villages, and vibrant cityscapes of Oslo and Bergen. Witness the midnight sun or northern lights depending on the season.",
     "startingDate": "2022-06-15",
     "endingDate": "2022-06-25",
+    "availableSeats": 22,
+    "totalNumberOfSeats": 30,
     "price": 279900,
     "moods": {
       "nature": 100,
@@ -182,6 +204,8 @@
     "description": "Experience the vibrant energy of Rio de Janeiro during Carnival. Dance to samba beats, enjoy lively parades, and soak in the city's iconic sights.",
     "startingDate": "2023-02-10",
     "endingDate": "2023-02-20",
+    "availableSeats": 30,
+    "totalNumberOfSeats": 30,
     "price": 229900,
     "moods": {
       "nature": 40,
@@ -198,6 +222,8 @@
     "description": "Relax in overwater bungalows surrounded by turquoise waters. Enjoy snorkeling, spa treatments, and unforgettable sunsets in this tropical paradise.",
     "startingDate": "2022-12-01",
     "endingDate": "2022-12-08",
+    "availableSeats": 20,
+    "totalNumberOfSeats": 20,
     "price": 399900,
     "moods": {
       "nature": 70,
@@ -214,6 +240,8 @@
     "description": "Step into the world of Middle-earth with a visit to Hobbiton. Then, explore New Zealand's stunning glaciers, fjords, and geothermal wonders.",
     "startingDate": "2022-11-10",
     "endingDate": "2022-11-20",
+    "availableSeats": 10,
+    "totalNumberOfSeats": 10,
     "price": 289900,
     "moods": {
       "nature": 90,
@@ -230,6 +258,8 @@
     "description": "Discover Thailand's tropical islands, turquoise waters, and vibrant nightlife. Enjoy snorkeling, relaxing beaches, and bustling markets.",
     "startingDate": "2023-01-15",
     "endingDate": "2023-01-25",
+    "availableSeats": 30,
+    "totalNumberOfSeats": 31,
     "price": 199900,
     "moods": {
       "nature": 80,
@@ -246,6 +276,8 @@
     "description": "Indulge in Santorini’s iconic whitewashed buildings, stunning sunsets, and delicious Mediterranean cuisine. A perfect romantic getaway.",
     "startingDate": "2022-07-05",
     "endingDate": "2022-07-12",
+    "availableSeats": 20,
+    "totalNumberOfSeats": 20,
     "price": 179900,
     "moods": {
       "nature": 50,
@@ -263,6 +295,8 @@
     "startingDate": "2022-04-01",
     "endingDate": "2022-04-10",
     "price": 189900,
+    "availableSeats": 20,
+    "totalNumberOfSeats": 20,
     "moods": {
       "nature": 70,
       "relax": 40,
@@ -279,6 +313,8 @@
     "startingDate": "2022-09-05",
     "endingDate": "2022-09-15",
     "price": 209900,
+    "availableSeats": 20,
+    "totalNumberOfSeats": 20,
     "moods": {
       "nature": 30,
       "relax": 40,
@@ -295,6 +331,8 @@
     "startingDate": "2022-05-10",
     "endingDate": "2022-05-20",
     "price": 249900,
+    "availableSeats": 20,
+    "totalNumberOfSeats": 20,
     "moods": {
       "nature": 60,
       "relax": 30,
@@ -311,6 +349,8 @@
     "startingDate": "2022-12-20",
     "endingDate": "2022-12-28",
     "price": 299900,
+    "availableSeats": 20,
+    "totalNumberOfSeats": 20,
     "moods": {
       "nature": 90,
       "relax": 50,
@@ -327,6 +367,8 @@
     "startingDate": "2022-03-10",
     "endingDate": "2022-03-20",
     "price": 189900,
+    "availableSeats": 20,
+    "totalNumberOfSeats": 20,
     "moods": {
       "nature": 40,
       "relax": 30,
@@ -343,6 +385,8 @@
     "startingDate": "2022-11-01",
     "endingDate": "2022-11-10",
     "price": 269900,
+    "availableSeats": 20,
+    "totalNumberOfSeats": 20,
     "moods": {
       "nature": 100,
       "relax": 20,
@@ -359,6 +403,8 @@
     "startingDate": "2022-06-15",
     "endingDate": "2022-06-25",
     "price": 209900,
+    "availableSeats": 20,
+    "totalNumberOfSeats": 20,
     "moods": {
       "nature": 70,
       "relax": 60,

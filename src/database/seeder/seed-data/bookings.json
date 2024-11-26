@@ -1,0 +1,14 @@
+[
+    {
+        "id": "c92f7d85-012b-4f0f-b0df-48f0dfc1db17",
+        "selectedSeats": 4,
+        "status": "pending",
+        "expirationTime": "2022-07-01T00:15:00.000Z",
+        "user": {
+            "id": "1e23e5cf-f93f-4682-94e1-e517c2364582"
+        },
+        "travel": {
+            "id": "c92f7d85-012b-4f0f-b0df-48f0dfc1db17"
+        }
+    }
+]

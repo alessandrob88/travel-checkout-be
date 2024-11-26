@@ -8,6 +8,8 @@ import { getTypeOrmConfig } from './config/database.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TravelModule } from './domains/travel/travel.module';
+import { BookingModule } from './domains/booking/booking.module';
+import { UserModule } from './domains/user/user.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { TravelModule } from './domains/travel/travel.module';
       playground: true,
     }),
     TravelModule,
+    BookingModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
