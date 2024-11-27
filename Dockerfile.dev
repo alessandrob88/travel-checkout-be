@@ -9,10 +9,11 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY src ./src
+COPY test ./test
 COPY tsconfig.json ./
 COPY .env.local ./.env
 COPY wait-for-it.sh ./
 
 RUN chmod +x ./wait-for-it.sh
 
-CMD ["bash", "-c", "./wait-for-it.sh postgres ${DB_PORT} 60 && npm run start:dev"]
+CMD ["bash", "-c", "./wait-for-it.sh ${DB_HOST} ${DB_PORT} 60 && npm run start:dev"]
