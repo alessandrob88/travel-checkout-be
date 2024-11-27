@@ -1,10 +1,15 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserService } from '../user/user.service';
 import { TravelService } from '../travel/travel.service';
 import { Booking, BookingStatus } from './booking.entity';
 import { BookingValidator } from './booking.validator';
+import { PaymentService } from '../payment/payment.service';
 
 @Injectable()
 export class BookingService {
@@ -14,6 +19,7 @@ export class BookingService {
     private userService: UserService,
     private travelService: TravelService,
     private bookingValidator: BookingValidator,
+    private paymentService: PaymentService,
   ) {}
 
   /**
@@ -52,19 +58,58 @@ export class BookingService {
       );
     }
 
+    await this.travelService.decreaseAvailableSeats(travelId, selectedSeats);
+
     const expirationTime = new Date();
     expirationTime.setMinutes(expirationTime.getMinutes() + 15);
-
-    await this.travelService.decreaseAvailableSeats(travelId, selectedSeats);
 
     const booking = this.bookingRepository.create({
       user,
       travel,
       selectedSeats,
+      totalPrice: travel.price * selectedSeats,
       expirationTime,
       status: BookingStatus.PENDING,
     });
 
     return this.bookingRepository.save(booking);
+  }
+
+  /**
+   * Confirms a booking with payment side effect
+   *
+   * @param bookingId identifier of the booking
+   * @throws {BadRequestException} if the booking is not in a confirmable state
+   * @throws {NotFoundException} if the booking is not found
+   * @throws {Error} if payment fails TODO: final version yet to implement
+   * @returns confirmed booking
+   */
+  async confirmBooking(bookingId: string): Promise<Booking> {
+    const booking = await this.bookingRepository.findOne({
+      where: { id: bookingId },
+    });
+
+    if (!booking) {
+      throw new NotFoundException('Booking not found');
+    }
+
+    this.bookingValidator.validateBookingNotExpired(booking);
+
+    if (booking.status !== BookingStatus.PENDING) {
+      throw new BadRequestException('Booking is not in a confirmable state');
+    }
+
+    // TODO: this should be refactored because payment step is not implemented
+    const paymentSuccess = await this.paymentService.processPayment(
+      booking.travel.price,
+    );
+    if (!paymentSuccess) {
+      throw new Error('Payment failed');
+    }
+
+    return await this.bookingRepository.save({
+      ...booking,
+      status: BookingStatus.CONFIRMED,
+    });
   }
 }

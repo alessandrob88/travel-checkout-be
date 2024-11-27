@@ -7,6 +7,7 @@ import { Booking, BookingStatus } from './booking.entity';
 import { BookingValidator } from './booking.validator';
 import { Repository } from 'typeorm';
 import { Travel } from '../travel/entities/travel.entity';
+import { PaymentService } from '../payment/payment.service';
 
 const mockUser = {
   id: '999abc-def00-123abc-def00',
@@ -33,6 +34,7 @@ const mockBooking = {
   user: mockUser,
   travel: mockTravel,
   selectedSeats: 2,
+  totalPrice: 20000,
   status: BookingStatus.PENDING,
   expirationTime: new Date(),
   createdAt: new Date(),
@@ -55,12 +57,15 @@ const mockTravelService = {
 
 const mockBookingValidator = { validateBookingSize: jest.fn() };
 
+const mockPaymentService = { processPayment: jest.fn().mockReturnValue(true) };
+
 describe('BookingService', () => {
   let bookingService: BookingService;
   let travelService: TravelService;
   let bookingValidator: BookingValidator;
   let bookingRepository: jest.Mocked<Repository<Booking>>;
   let userService: UserService;
+  let paymentService: PaymentService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -73,6 +78,7 @@ describe('BookingService', () => {
           useValue: mockBookingRepository,
         },
         { provide: BookingValidator, useValue: mockBookingValidator },
+        { provide: PaymentService, useValue: mockPaymentService },
       ],
     }).compile();
 
@@ -81,61 +87,123 @@ describe('BookingService', () => {
     bookingValidator = module.get<BookingValidator>(BookingValidator);
     bookingRepository = module.get(getRepositoryToken(Booking));
     userService = module.get<UserService>(UserService);
+    paymentService = module.get<PaymentService>(PaymentService);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should create a new booking if valid', async () => {
-    bookingRepository.create.mockReturnValueOnce(mockBooking);
-    bookingRepository.save.mockResolvedValueOnce(mockBooking);
+  describe('createBooking', () => {
+    it('should create a new booking if valid', async () => {
+      bookingRepository.create.mockReturnValueOnce(mockBooking);
+      bookingRepository.save.mockResolvedValueOnce(mockBooking);
 
-    const result = await bookingService.createBooking(
-      mockBooking.user.email,
-      mockBooking.travel.id,
-      mockBooking.selectedSeats,
-    );
-
-    expect(result).toEqual(mockBooking);
-    expect(travelService.getTravelById).toHaveBeenCalledWith(
-      mockBooking.travel.id,
-    );
-    expect(bookingValidator.validateBookingSize).toHaveBeenCalledWith(
-      mockBooking.selectedSeats,
-    );
-    expect(userService.createUserIfNotExists).toHaveBeenCalledWith(
-      mockBooking.user.email,
-    );
-    expect(bookingRepository.create).toHaveBeenCalledWith({
-      user: mockUser,
-      travel: mockTravel,
-      selectedSeats: mockBooking.selectedSeats,
-      expirationTime: expect.any(Date),
-      status: mockBooking.status,
-    });
-    expect(bookingRepository.save).toHaveBeenCalledWith(mockBooking);
-  });
-
-  it('should throw an error if a user already has a pending booking for the same travel', async () => {
-    bookingRepository.findOne.mockResolvedValueOnce(mockBooking);
-
-    await expect(
-      bookingService.createBooking('test@example.com', 'travelId', 2),
-    ).rejects.toThrow('You already have a pending booking for this travel');
-  });
-
-  it('should throw an error if booking size is invalid', async () => {
-    bookingValidator.validateBookingSize = jest.fn().mockImplementation(() => {
-      throw new Error('Invalid booking size');
-    });
-
-    await expect(
-      bookingService.createBooking(
+      const result = await bookingService.createBooking(
         mockBooking.user.email,
         mockBooking.travel.id,
-        0,
-      ),
-    ).rejects.toThrow('Invalid booking size');
+        mockBooking.selectedSeats,
+      );
+
+      expect(result).toEqual(mockBooking);
+      expect(travelService.getTravelById).toHaveBeenCalledWith(
+        mockBooking.travel.id,
+      );
+      expect(bookingValidator.validateBookingSize).toHaveBeenCalledWith(
+        mockBooking.selectedSeats,
+      );
+      expect(userService.createUserIfNotExists).toHaveBeenCalledWith(
+        mockBooking.user.email,
+      );
+      expect(bookingRepository.create).toHaveBeenCalledWith({
+        user: mockUser,
+        travel: mockTravel,
+        selectedSeats: mockBooking.selectedSeats,
+        expirationTime: expect.any(Date),
+        status: mockBooking.status,
+      });
+      expect(bookingRepository.save).toHaveBeenCalledWith(mockBooking);
+    });
+
+    it('should throw an error if a user already has a pending booking for the same travel', async () => {
+      bookingRepository.findOne.mockResolvedValueOnce(mockBooking);
+
+      await expect(
+        bookingService.createBooking('test@example.com', 'travelId', 2),
+      ).rejects.toThrow('You already have a pending booking for this travel');
+    });
+
+    it('should throw an error if booking size is invalid', async () => {
+      bookingValidator.validateBookingSize = jest
+        .fn()
+        .mockImplementation(() => {
+          throw new Error('Invalid booking size');
+        });
+
+      await expect(
+        bookingService.createBooking(
+          mockBooking.user.email,
+          mockBooking.travel.id,
+          0,
+        ),
+      ).rejects.toThrow('Invalid booking size');
+    });
+  });
+
+  describe('confirmBooking', () => {
+    it('should throw a NotFoundException if the booking is not found', async () => {
+      bookingRepository.findOne.mockResolvedValueOnce(null);
+
+      await expect(
+        bookingService.confirmBooking('000abc-def99-123abc-def00'),
+      ).rejects.toThrow('Booking not found');
+
+      expect(bookingRepository.findOne).toHaveBeenCalledWith({
+        where: { id: '000abc-def99-123abc-def00' },
+      });
+    });
+
+    it('should throw a BadRequestException if the booking is not in a confirmable state', async () => {
+      bookingRepository.findOne.mockResolvedValueOnce({
+        ...mockBooking,
+        status: BookingStatus.CONFIRMED,
+      });
+
+      await expect(
+        bookingService.confirmBooking(mockBooking.id),
+      ).rejects.toThrow('Booking is not in a confirmable state');
+
+      expect(bookingRepository.findOne).toHaveBeenCalledWith({
+        where: { id: mockBooking.id },
+      });
+    });
+
+    it('should throw an error if payment fails', async () => {
+      bookingRepository.findOne.mockResolvedValueOnce(mockBooking);
+      paymentService.processPayment = jest.fn().mockReturnValue(false);
+
+      await expect(
+        bookingService.confirmBooking(mockBooking.id),
+      ).rejects.toThrow('Payment failed');
+
+      expect(paymentService.processPayment).toHaveBeenCalledWith(
+        mockBooking.travel.price,
+      );
+    });
+
+    it('should throw an error if booking has expired', async () => {
+      bookingRepository.findOne.mockResolvedValueOnce({
+        ...mockBooking,
+        expirationTime: new Date(Date.now() - 1),
+      });
+
+      await expect(
+        bookingService.confirmBooking(mockBooking.id),
+      ).rejects.toThrow('Booking expired');
+
+      expect(bookingRepository.findOne).toHaveBeenCalledWith({
+        where: { id: mockBooking.id },
+      });
+    });
   });
 });

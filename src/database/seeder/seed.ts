@@ -58,6 +58,7 @@ const seedBookingData = async (dataSource: DataSource) => {
       travel,
       selectedSeats: booking.selectedSeats,
       expirationTime: booking.expirationTime,
+      totalPrice: booking.totalPrice,
       status: booking.status as BookingStatus,
     });
   }

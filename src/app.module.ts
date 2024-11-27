@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { TravelModule } from './domains/travel/travel.module';
 import { BookingModule } from './domains/booking/booking.module';
 import { UserModule } from './domains/user/user.module';
+import { PaymentModule } from './domains/payment/payment.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { UserModule } from './domains/user/user.module';
     TravelModule,
     BookingModule,
     UserModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

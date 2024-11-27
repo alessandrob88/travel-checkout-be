@@ -17,6 +17,9 @@ export class BookingGraphQL {
   selectedSeats: number;
 
   @Field()
+  totalPrice: number;
+
+  @Field()
   expirationTime: Date;
 
   @Field()

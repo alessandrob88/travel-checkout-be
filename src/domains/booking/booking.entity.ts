@@ -18,6 +18,9 @@ export class Booking extends BaseEntity {
   @Index()
   selectedSeats: number;
 
+  @Column({ type: 'int' })
+  totalPrice: number;
+
   @Column({
     type: 'enum',
     enum: BookingStatus,
