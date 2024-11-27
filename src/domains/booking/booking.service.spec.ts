@@ -53,9 +53,13 @@ const mockBookingRepository = {
 
 const mockTravelService = {
   getTravelById: jest.fn().mockResolvedValue(mockTravel),
+  decreaseAvailableSeats: jest.fn(),
 };
 
-const mockBookingValidator = { validateBookingSize: jest.fn() };
+const mockBookingValidator = {
+  validateBookingSize: jest.fn(),
+  validateBookingNotExpired: jest.fn(),
+};
 
 const mockPaymentService = { processPayment: jest.fn().mockReturnValue(true) };
 
@@ -121,6 +125,7 @@ describe('BookingService', () => {
         selectedSeats: mockBooking.selectedSeats,
         expirationTime: expect.any(Date),
         status: mockBooking.status,
+        totalPrice: mockBooking.totalPrice,
       });
       expect(bookingRepository.save).toHaveBeenCalledWith(mockBooking);
     });
@@ -159,6 +164,7 @@ describe('BookingService', () => {
       ).rejects.toThrow('Booking not found');
 
       expect(bookingRepository.findOne).toHaveBeenCalledWith({
+        relations: ['travel', 'user'],
         where: { id: '000abc-def99-123abc-def00' },
       });
     });
@@ -174,36 +180,49 @@ describe('BookingService', () => {
       ).rejects.toThrow('Booking is not in a confirmable state');
 
       expect(bookingRepository.findOne).toHaveBeenCalledWith({
+        relations: ['travel', 'user'],
+        where: { id: mockBooking.id },
+      });
+    });
+
+    it('should throw an error if booking has expired', async () => {
+      bookingRepository.findOne.mockResolvedValueOnce({
+        ...mockBooking,
+        expirationTime: new Date(0),
+      });
+
+      bookingValidator.validateBookingNotExpired = jest
+        .fn()
+        .mockImplementationOnce(() => {
+          throw new Error('Booking expired');
+        });
+
+      await expect(
+        bookingService.confirmBooking(mockBooking.id),
+      ).rejects.toThrow('Booking expired');
+
+      expect(bookingValidator.validateBookingNotExpired).toHaveBeenCalledWith({
+        ...mockBooking,
+        expirationTime: new Date(0),
+      });
+
+      expect(bookingRepository.findOne).toHaveBeenCalledWith({
+        relations: ['travel', 'user'],
         where: { id: mockBooking.id },
       });
     });
 
     it('should throw an error if payment fails', async () => {
       bookingRepository.findOne.mockResolvedValueOnce(mockBooking);
-      paymentService.processPayment = jest.fn().mockReturnValue(false);
+      paymentService.processPayment = jest.fn().mockReturnValueOnce(false);
 
       await expect(
         bookingService.confirmBooking(mockBooking.id),
       ).rejects.toThrow('Payment failed');
 
       expect(paymentService.processPayment).toHaveBeenCalledWith(
-        mockBooking.travel.price,
+        mockBooking.travel.price * mockBooking.selectedSeats,
       );
-    });
-
-    it('should throw an error if booking has expired', async () => {
-      bookingRepository.findOne.mockResolvedValueOnce({
-        ...mockBooking,
-        expirationTime: new Date(Date.now() - 1),
-      });
-
-      await expect(
-        bookingService.confirmBooking(mockBooking.id),
-      ).rejects.toThrow('Booking expired');
-
-      expect(bookingRepository.findOne).toHaveBeenCalledWith({
-        where: { id: mockBooking.id },
-      });
     });
   });
 });

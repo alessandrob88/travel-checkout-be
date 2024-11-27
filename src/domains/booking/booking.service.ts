@@ -87,6 +87,7 @@ export class BookingService {
   async confirmBooking(bookingId: string): Promise<Booking> {
     const booking = await this.bookingRepository.findOne({
       where: { id: bookingId },
+      relations: ['travel', 'user'],
     });
 
     if (!booking) {
@@ -101,13 +102,13 @@ export class BookingService {
 
     // TODO: this should be refactored because payment step is not implemented
     const paymentSuccess = await this.paymentService.processPayment(
-      booking.travel.price,
+      booking.travel.price * booking.selectedSeats,
     );
     if (!paymentSuccess) {
       throw new Error('Payment failed');
     }
 
-    return await this.bookingRepository.save({
+    return this.bookingRepository.save({
       ...booking,
       status: BookingStatus.CONFIRMED,
     });

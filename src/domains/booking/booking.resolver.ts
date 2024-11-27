@@ -33,6 +33,7 @@ export class BookingResolver {
    * @throws {BadRequestException} If the booking is not in a confirmable state
    * @throws {Error} If payment processing fails
    */
+  @Mutation(() => BookingGraphQL)
   async confirmBooking(
     @Args('bookingId') bookingId: string,
   ): Promise<BookingGraphQL> {
