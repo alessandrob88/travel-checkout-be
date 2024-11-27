@@ -1,5 +1,5 @@
 import { PaginationResponse } from '../../shared/types/paginationResponse.type';
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Args } from '@nestjs/graphql';
 import { TravelService } from './travel.service';
 import { Travel } from './entities/travel.entity';
 import { PaginatedTravelGraphQL } from './models/paginated-travel.model';
