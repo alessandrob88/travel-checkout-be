@@ -408,8 +408,7 @@ describe('BookingResolver (e2e)', () => {
           query: mutation,
           variables: { bookingId: bookingInANotConfirmableState },
         });
-      console.log(response.error);
-      console.log(response.body);
+
       expect(response.status).toBe(200);
       expect(response.body.errors).toBeDefined();
       expect(response.body.errors[0].message).toBe(

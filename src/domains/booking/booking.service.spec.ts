@@ -49,11 +49,14 @@ const mockBookingRepository = {
   findOne: jest.fn(),
   create: jest.fn(),
   save: jest.fn(),
+  find: jest.fn(),
+  update: jest.fn(),
 };
 
 const mockTravelService = {
   getTravelById: jest.fn().mockResolvedValue(mockTravel),
   decreaseAvailableSeats: jest.fn(),
+  increaseAvailableSeats: jest.fn(),
 };
 
 const mockBookingValidator = {
@@ -223,6 +226,77 @@ describe('BookingService', () => {
       expect(paymentService.processPayment).toHaveBeenCalledWith(
         mockBooking.travel.price * mockBooking.selectedSeats,
       );
+    });
+  });
+
+  describe('handleExpiredBookings', () => {
+    const now = new Date();
+    const expiredBookings = [
+      {
+        id: '000abc-def99-123abc-def00',
+        user: mockUser,
+        travel: mockTravel,
+        selectedSeats: 2,
+        totalPrice: 20000,
+        status: BookingStatus.PENDING,
+        expirationTime: new Date(now.getTime() - 1000),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: '000abc-def99-123abc-def01',
+        user: mockUser,
+        travel: mockTravel,
+        selectedSeats: 4,
+        totalPrice: 20000,
+        status: BookingStatus.PENDING,
+        expirationTime: new Date(now.getTime() - 1000),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ];
+
+    it('should handle expired bookings by updating their status and increasing travel seats', async () => {
+      bookingRepository.find.mockResolvedValueOnce(expiredBookings);
+
+      await bookingService.handleExpiredBookings();
+
+      expect(bookingRepository.find).toHaveBeenCalledWith({
+        where: {
+          status: BookingStatus.PENDING,
+          expirationTime: expect.any(Object),
+        },
+        relations: ['travel'],
+      });
+
+      expect(bookingRepository.update).toHaveBeenCalledTimes(2);
+      expect(bookingRepository.update).toHaveBeenCalledWith(
+        '000abc-def99-123abc-def00',
+        { status: BookingStatus.EXPIRED },
+      );
+      expect(bookingRepository.update).toHaveBeenCalledWith(
+        '000abc-def99-123abc-def01',
+        { status: BookingStatus.EXPIRED },
+      );
+
+      expect(travelService.increaseAvailableSeats).toHaveBeenCalledTimes(2);
+      expect(travelService.increaseAvailableSeats).toHaveBeenCalledWith(
+        mockTravel.id,
+        2,
+      );
+      expect(travelService.increaseAvailableSeats).toHaveBeenCalledWith(
+        mockTravel.id,
+        4,
+      );
+    });
+
+    it('should do nothing if there are no expired bookings', async () => {
+      bookingRepository.find.mockResolvedValueOnce([]);
+
+      await bookingService.handleExpiredBookings();
+
+      expect(bookingRepository.update).not.toHaveBeenCalled();
+      expect(travelService.increaseAvailableSeats).not.toHaveBeenCalled();
     });
   });
 });

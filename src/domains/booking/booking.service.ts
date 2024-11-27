@@ -4,12 +4,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { LessThan, Repository } from 'typeorm';
 import { UserService } from '../user/user.service';
 import { TravelService } from '../travel/travel.service';
 import { Booking, BookingStatus } from './booking.entity';
 import { BookingValidator } from './booking.validator';
 import { PaymentService } from '../payment/payment.service';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class BookingService {
@@ -102,7 +103,7 @@ export class BookingService {
 
     // TODO: this should be refactored because payment step is not implemented
     const paymentSuccess = await this.paymentService.processPayment(
-      booking.travel.price * booking.selectedSeats,
+      booking.totalPrice,
     );
     if (!paymentSuccess) {
       throw new Error('Payment failed');
@@ -112,5 +113,46 @@ export class BookingService {
       ...booking,
       status: BookingStatus.CONFIRMED,
     });
+  }
+
+  /**
+   * This function is executed every 5 minutes by a cron job.
+   * It finds all bookings that are in pending status and are expired,
+   * updates their status to "expired" and resets the number of reserved seats
+   * of the associated travel.
+   */
+  @Cron('*/5 * * * *')
+  async handleExpiredBookings(): Promise<void> {
+    console.log('cron:::::::start');
+    const now = new Date();
+    const expiredBookings = await this.bookingRepository.find({
+      where: {
+        status: BookingStatus.PENDING,
+        expirationTime: LessThan(now),
+      },
+      relations: ['travel'],
+    });
+
+    for (const booking of expiredBookings) {
+      await this.bookingRepository.update(booking.id, {
+        status: BookingStatus.EXPIRED,
+      });
+
+      await this.travelService.increaseAvailableSeats(
+        booking.travel.id,
+        booking.selectedSeats,
+      );
+    }
+    console.log('cron:::::::end');
+  }
+
+  /**
+   * Updates the status of the booking with the given id
+   *
+   * @param bookingId the id of the booking
+   * @param status the new status of the booking
+   */
+  async updateStatus(bookingId: string, status: BookingStatus): Promise<void> {
+    await this.bookingRepository.update(bookingId, { status });
   }
 }
