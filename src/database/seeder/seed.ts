@@ -6,10 +6,10 @@ import { User } from '../../domains/user/user.entity';
 import { Booking, BookingStatus } from '../../domains/booking/booking.entity';
 import { MoodType } from '../../domains/travel/mood-type.enum';
 
-import { createDataSource } from './datasource';
 import * as travelData from './seed-data/travels.json';
 import * as userData from './seed-data/users.json';
 import * as bookingData from './seed-data/bookings.json';
+import { createDataSource } from './datasource';
 
 const seedTravelData = async (dataSource: DataSource) => {
   const travelRepository = dataSource.getRepository(Travel);
@@ -54,6 +54,7 @@ const seedBookingData = async (dataSource: DataSource) => {
     const travel = await travelRepository.findOneBy({ id: booking.travel.id });
 
     await bookingRepository.save({
+      id: booking.id,
       user,
       travel,
       selectedSeats: booking.selectedSeats,

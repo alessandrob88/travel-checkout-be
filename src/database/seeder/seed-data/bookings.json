@@ -11,5 +11,18 @@
         "travel": {
             "id": "c92f7d85-012b-4f0f-b0df-48f0dfc1db17"
         }
+    },
+    {
+        "id": "f92f7d85-012b-4f0f-b0df-48f0dfc1db17",
+        "selectedSeats": 4,
+        "status": "expired",
+        "totalPrice": 440000,
+        "expirationTime": "2099-07-01T00:15:00.000Z",
+        "user": {
+            "id": "f8cf65ba-2146-4c07-bce2-bdb3c5fc6f6f"
+        },
+        "travel": {
+            "id": "4f4bd032-e7d4-402a-bdf6-aaf6be240d53"
+        }
     }
 ]

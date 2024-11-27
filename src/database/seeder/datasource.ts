@@ -10,6 +10,7 @@ export const createDataSource = (): DataSource => {
   const envSuffixMap = {
     development: '.local',
     staging: '.staging',
+    test: '.local',
   };
 
   const envSuffix = envSuffixMap[environment] || '';
@@ -17,8 +18,9 @@ export const createDataSource = (): DataSource => {
 
   const configService = new ConfigService();
 
-  const typeOrmConfig = getTypeOrmConfig(configService) as DataSourceOptions;
-  const dataSource = new DataSource(typeOrmConfig);
+  const dataSource = new DataSource(
+    getTypeOrmConfig(configService) as DataSourceOptions,
+  );
 
   return dataSource;
 };
