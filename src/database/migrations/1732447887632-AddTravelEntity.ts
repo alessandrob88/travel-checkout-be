@@ -17,7 +17,7 @@ export class AddTravelEntity1732447887632 implements MigrationInterface {
       `CREATE INDEX "idx_travel_dates" ON "travels" ("startingDate") `,
     );
     await queryRunner.query(
-      `ALTER TABLE "moods" ADD CONSTRAINT "FK_036204eb36aaa6bcab81f1153c0" FOREIGN KEY ("travelId") REFERENCES "travel"("id") ON DELETE CASCADE ON UPDATE NO ACTION`,
+      `ALTER TABLE "moods" ADD CONSTRAINT "FK_036204eb36aaa6bcab81f1153c0" FOREIGN KEY ("travelId") REFERENCES "travels"("id") ON DELETE CASCADE ON UPDATE NO ACTION`,
     );
   }
 
