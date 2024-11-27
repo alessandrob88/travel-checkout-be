@@ -50,34 +50,4 @@ export class TravelResolver {
   async getTravelBySlug(@Args('slug') slug: string): Promise<Travel> {
     return this.travelService.getTravelBySlug(slug);
   }
-
-  /**
-   * Mutation to increase the available seats for a travel entity.
-   *
-   * @param id Travel entity unique identifier.
-   * @param seats The number of seats to increase.
-   * @returns A promise that resolves to the updated travel entity.
-   */
-  @Mutation(() => TravelGraphQL)
-  async increaseAvailableSeats(
-    @Args('id') id: string,
-    @Args('seats', { type: () => Number }) seats: number,
-  ): Promise<Travel> {
-    return this.travelService.increaseAvailableSeats(id, seats);
-  }
-
-  /**
-   * Mutation to decrease the available seats for a travel entity.
-   *
-   * @param id Travel entity unique identifier.
-   * @param seats The number of seats to decrease.
-   * @returns A promise that resolves to the updated travel entity.
-   */
-  @Mutation(() => TravelGraphQL)
-  async decreaseAvailableSeats(
-    @Args('id') id: string,
-    @Args('seats', { type: () => Number }) seats: number,
-  ): Promise<Travel> {
-    return this.travelService.decreaseAvailableSeats(id, seats);
-  }
 }
