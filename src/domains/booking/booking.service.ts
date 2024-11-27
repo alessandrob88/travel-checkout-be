@@ -123,7 +123,6 @@ export class BookingService {
    */
   @Cron('*/5 * * * *')
   async handleExpiredBookings(): Promise<void> {
-    console.log('cron:::::::start');
     const now = new Date();
     const expiredBookings = await this.bookingRepository.find({
       where: {
@@ -143,7 +142,6 @@ export class BookingService {
         booking.selectedSeats,
       );
     }
-    console.log('cron:::::::end');
   }
 
   /**
