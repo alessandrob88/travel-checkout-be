@@ -17,7 +17,7 @@ describe('TravelResolver (e2e)', () => {
         AppModule,
         TypeOrmModule.forRootAsync({
           inject: [ConfigService],
-          useFactory: getTypeOrmConfig, //TODO: use different database
+          useFactory: getTypeOrmConfig,
         }),
       ],
     }).compile();
