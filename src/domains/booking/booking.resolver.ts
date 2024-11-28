@@ -1,7 +1,8 @@
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { BookingService } from './booking.service';
-import { CreateBookingDto } from './create-booking.dto';
+import { CreateBookingDto } from './dto/create-booking.dto';
 import { BookingGraphQL } from './booking.model';
+import { ConfirmBookingDto } from './dto/confirm-booking.dto';
 
 @Resolver(() => BookingGraphQL)
 export class BookingResolver {
@@ -27,7 +28,7 @@ export class BookingResolver {
   /**
    * Confirms a booking by its identifier
    *
-   * @param bookingId the identifier of the booking to confirm
+   * @param args ConfirmBookingDto dto containing the identifier of the booking to confirm
    * @returns A promise that resolves to the confirmed booking in GraphQL format
    * @throws {NotFoundException} If the booking is not found
    * @throws {BadRequestException} If the booking is not in a confirmable state
@@ -35,8 +36,8 @@ export class BookingResolver {
    */
   @Mutation(() => BookingGraphQL)
   async confirmBooking(
-    @Args('bookingId') bookingId: string,
+    @Args() args: ConfirmBookingDto,
   ): Promise<BookingGraphQL> {
-    return this.bookingService.confirmBooking(bookingId);
+    return this.bookingService.confirmBooking(args.bookingId);
   }
 }

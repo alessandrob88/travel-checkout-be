@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BookingResolver } from './booking.resolver';
 import { BookingService } from './booking.service';
-import { CreateBookingDto } from './create-booking.dto';
+import { CreateBookingDto } from './dto/create-booking.dto';
 import { BadRequestException } from '@nestjs/common';
 
 describe('BookingResolver', () => {
