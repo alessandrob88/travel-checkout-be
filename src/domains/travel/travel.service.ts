@@ -27,6 +27,12 @@ export class TravelService extends BaseService<Travel> {
     page: number,
     pageSize: number,
   ): Promise<PaginationResponse<Travel>> {
+    if (page < 1) {
+      throw new Error('Page must be a positive number');
+    }
+    if (pageSize < 1) {
+      throw new Error('Page size must be a positive number');
+    }
     return this.getAllWithPagination(page, pageSize, { relations: ['moods'] });
   }
 

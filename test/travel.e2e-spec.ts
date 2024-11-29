@@ -141,6 +141,26 @@ describe('TravelResolver (e2e)', () => {
       expect(totalPages).toBe(3);
     });
 
+    it('should return result calling getAllTravels without page query', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          query: `
+            query {
+              getAllTravels {
+                data {
+                  id
+                }
+              }
+            }
+          `,
+        })
+        .expect(200);
+
+      const { data } = response.body.data.getAllTravels;
+      expect(data.length).toBeGreaterThan(0);
+    });
+
     it('should return an error for invalid ID format in getTravelById', async () => {
       const response = await request(app.getHttpServer())
         .post('/graphql')
@@ -158,6 +178,50 @@ describe('TravelResolver (e2e)', () => {
       expect(response.body.errors).toBeDefined();
       expect(response.body.errors[0].message).toContain(
         'invalid input syntax for type uuid: "invalid-id-format"',
+      );
+    });
+
+    it('should return an error with negative page number', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          query: `
+            query {
+              getAllTravels(page: -1) {
+                data {
+                  id
+                }
+              }
+            }
+          `,
+        })
+        .expect(200);
+
+      expect(response.body.errors).toBeDefined();
+      expect(response.body.errors[0].message).toContain(
+        'Page must be a positive number',
+      );
+    });
+
+    it('should return an error with negative pageSize number', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          query: `
+            query {
+              getAllTravels(pageSize: -1) {
+                data {
+                  id
+                }
+              }
+            }
+          `,
+        })
+        .expect(200);
+
+      expect(response.body.errors).toBeDefined();
+      expect(response.body.errors[0].message).toContain(
+        'Page size must be a positive number',
       );
     });
   });
