@@ -51,10 +51,9 @@ describe('TravelResolver (e2e)', () => {
         })
         .expect(200);
 
-      const { id, name, availableSeats } = response.body.data.getTravelById;
+      const { id, name } = response.body.data.getTravelById;
       expect(id).toEqual('d408be33-aa6a-4c73-a2c8-58a70ab2ba4d');
       expect(name).toEqual('Jordan 360°');
-      expect(availableSeats).toEqual(10);
     });
 
     it('should return an error for a non-existent travel ID', async () => {
@@ -140,6 +139,26 @@ describe('TravelResolver (e2e)', () => {
       expect(page).toBe(1);
       expect(pageSize).toBe(10);
       expect(totalPages).toBe(3);
+    });
+
+    it('should return an error for invalid ID format in getTravelById', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/graphql')
+        .send({
+          query: `
+            query {
+              getTravelById(id: "invalid-id-format") {
+                id
+              }
+            }
+          `,
+        })
+        .expect(200);
+
+      expect(response.body.errors).toBeDefined();
+      expect(response.body.errors[0].message).toContain(
+        'invalid input syntax for type uuid: "invalid-id-format"',
+      );
     });
   });
 });

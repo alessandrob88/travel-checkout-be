@@ -4,6 +4,9 @@ import { TravelService } from './travel.service';
 import { Travel } from './entities/travel.entity';
 import { PaginatedTravelGraphQL } from './models/paginated-travel.model';
 import { TravelGraphQL } from './models/travel.model';
+import { GetAllTravelsInput } from './dto/get-all-travels-dto';
+import { GetTravelByIdInput } from './dto/get-travel-by-id.dto';
+import { GetTravelBySlugInput } from './dto/get-travel-by-slug.dto';
 
 @Resolver(() => Travel)
 export class TravelResolver {
@@ -20,10 +23,9 @@ export class TravelResolver {
    */
   @Query(() => PaginatedTravelGraphQL)
   async getAllTravels(
-    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
-    @Args('pageSize', { type: () => Number, defaultValue: 10 })
-    pageSize: number,
+    @Args() args: GetAllTravelsInput,
   ): Promise<PaginationResponse<TravelGraphQL>> {
+    const { page = 1, pageSize = 10 } = args;
     return this.travelService.getAllTravels(page, pageSize);
   }
 
@@ -35,7 +37,7 @@ export class TravelResolver {
    * @throws NotFoundException if not found
    */
   @Query(() => TravelGraphQL)
-  async getTravelById(@Args('id') id: string): Promise<Travel> {
+  async getTravelById(@Args() { id }: GetTravelByIdInput): Promise<Travel> {
     return this.travelService.getTravelById(id);
   }
 
@@ -47,7 +49,9 @@ export class TravelResolver {
    * @throws NotFoundException if not found
    */
   @Query(() => TravelGraphQL)
-  async getTravelBySlug(@Args('slug') slug: string): Promise<Travel> {
+  async getTravelBySlug(
+    @Args() { slug }: GetTravelBySlugInput,
+  ): Promise<Travel> {
     return this.travelService.getTravelBySlug(slug);
   }
 }
