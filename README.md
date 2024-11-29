@@ -111,3 +111,6 @@ Run E2E tests: `make run-e2e-tests`
 ## Forgotten Late fixes
 - **Moods** table has an id column that can be avoided because using mood column and travelId column as unique key should be enough to guarantee row unicity.
 - **Travel** entity does not extends the base entity containing common fields `id`, `createdAt` and `updatedAt`, so that also Travels table does not have `createdAt` and `updatedAt` columns
+
+## Known issues
+I've encountered an issue with validation of negative numbers with decorators in getAllTravels resolver. They seems not to work properly To solve, I did a workaround by checking on service layer if page and pageSize are less than 1. I didn't had time to find for better solutions
