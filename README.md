@@ -79,9 +79,10 @@ Why use Makefile? in my opinion it simplifies a lot the interaction with the sys
 At the beginning we thought about having Moods in a json field inside Travels table. In our opinion in a relational database you should avoid the more json fields you can even though Postgres supports them awesome. Also, when you think about Moods you think that can be extended easily because they are in a json fields. In general having a json field is useful when you have unstructured data. In this case moods can be added but they follow a known pattern (key value), so we decided to use an enum and a separate table with a foreign key to match travels.
 
 ## How to interact with the project
-
+0.  **env file**:
+   create a .env.local file based on .env.example file.
 1.  **Start App**:
-    
+   
     Using Makefile command `make start` lets you to setup docker containers, nest app with its dependencies and database structure (only for default database, not `test` database)
 Nest Applications waits for database to be up and running, also thanks to a shell scripts that physically waits for the database server to be ready on its specific port.
 You'll find application at `localhost:3000` with graphql playground at `localhost:3000/graphql`
